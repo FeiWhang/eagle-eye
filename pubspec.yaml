@@ -1,0 +1,40 @@
+name: eagle_eye
+description: Eagle Eye - Smart Home CCTV IPCamera กล้องวงจรปิดไร้สาย กล้องติดรถยนต์ กล้องติดรถมอเตอร์ไซค์
+
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+    sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+    flutter:
+        sdk: flutter
+    provider: ^4.0.4
+    getflutter: ^1.0.11
+    responsive_builder: ^0.1.5
+    get_it: ^4.0.1
+    url_launcher: ^5.4.2
+
+dev_dependencies:
+    flutter_test:
+        sdk: flutter
+
+flutter:
+    uses-material-design: true
+
+    assets:
+        - assets/home/logo.png
+        - assets/home/banner_0.png
+        - assets/home/banner_1.png
+        - assets/home/social/facebook.png
+        - assets/home/social/line.png
+        - assets/home/social/youtube.png
+
+    fonts:
+        - family: CeraPro
+          fonts:
+              - asset: fonts/CeraPro-Regular.ttf
+              - asset: fonts/CeraPro-Italic.ttf
+                style: italic
