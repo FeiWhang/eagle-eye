@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 class Asset {
   static const String logo = 'assets/home/logo.png';
-  static const String banners0 = 'assets/home/banner_0.png';
-  static const String banners1 = 'assets/home/banner_1.png';
+  static const List<String> banners = <String>[
+    'assets/home/banner_0.png',
+    'assets/home/banner_1.png'
+  ];
 }
 
 class Typo {
@@ -14,6 +16,11 @@ class Typo {
     'SUPPORT',
     'EVENT/NEWS',
     'CONTACT US'
+  ];
+
+  static const List<String> banners = [
+    "Gatgets That Make Your Smartphone Even Smarter",
+    "Eagle Eye - Smart Home | Wireless CCTV | IPCamera | Dash Camera"
   ];
 }
 

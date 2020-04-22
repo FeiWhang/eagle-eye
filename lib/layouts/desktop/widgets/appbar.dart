@@ -1,4 +1,5 @@
 import 'package:eagle_eye/constants.dart';
+import 'package:eagle_eye/layouts/desktop/providers/scroll_provider.dart';
 import 'package:eagle_eye/layouts/desktop/routing/locator.dart';
 import 'package:eagle_eye/layouts/desktop/routing/navigation_service.dart';
 import 'package:eagle_eye/layouts/desktop/routing/route_names.dart';
@@ -7,34 +8,65 @@ import 'package:eagle_eye/layouts/desktop/extensions/hover_extension.dart';
 
 class DesktopBar extends StatelessWidget {
   final int pageIndex;
+  final ScrollProvider scrollProvider;
 
-  const DesktopBar({Key key, this.pageIndex}) : super(key: key);
+  const DesktopBar({Key key, this.pageIndex, this.scrollProvider})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-      ),
-      height: 120,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 70,
-        vertical: 20,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          _Logo(),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: List<Widget>.generate(
-                6,
-                (index) => _BarItem(
-                      index: index,
-                      pageIndex: pageIndex,
-                    )),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        ScrollProgress(progress: scrollProvider.progress),
+        AnimatedContainer(
+          duration: Duration(milliseconds: 99),
+          curve: Curves.linearToEaseOut,
+          decoration: BoxDecoration(
+            color: Colors.transparent,
           ),
-        ],
+          height: scrollProvider.barHeight,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 70,
+            vertical: 20,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              _Logo(),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: List<Widget>.generate(
+                    6,
+                    (index) => _BarItem(
+                          index: index,
+                          pageIndex: pageIndex,
+                        )),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class ScrollProgress extends StatelessWidget {
+  final double progress;
+
+  const ScrollProgress({Key key, this.progress}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedContainer(
+      width: double.infinity,
+      height: 4.99,
+      duration: Duration(milliseconds: 99),
+      child: LinearProgressIndicator(
+        value: progress,
+        backgroundColor: Colors.white,
+        valueColor: AlwaysStoppedAnimation<Color>(AppColor.accent1),
       ),
     );
   }
@@ -51,8 +83,8 @@ class _Logo extends StatelessWidget {
       child: Image.asset(
         Asset.logo,
         alignment: Alignment.center,
-        height: 100,
-        width: 180,
+        // height: 100,
+        // width: 180,
         fit: BoxFit.cover,
       ).showCursorOnHover,
     );

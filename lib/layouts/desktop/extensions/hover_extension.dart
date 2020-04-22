@@ -15,8 +15,12 @@ extension HoverExtensions on Widget {
   }
 
   Widget get moveUpOnHover {
-    return TranslareOnHover(
+    return MoveUpOnHover(
       child: this,
     );
+  }
+
+  Widget get showButtunOnHover {
+    return ShowButtunOnHover(child: this);
   }
 }

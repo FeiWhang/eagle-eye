@@ -30,9 +30,9 @@ class EagleEye extends StatelessWidget {
 }
 
 class Base extends StatelessWidget {
-  final Widget child;
   final int pageIndex;
-  const Base({Key key, @required this.child, this.pageIndex}) : super(key: key);
+
+  const Base({Key key, this.pageIndex}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,6 @@ class Base extends StatelessWidget {
       mobile: Container(color: Colors.blue),
       tablet: Container(color: Colors.yellow),
       desktop: Desktop(
-        child: child,
         pageIndex: pageIndex,
       ),
     );
