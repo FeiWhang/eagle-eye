@@ -53,7 +53,7 @@ class Desktop extends StatelessWidget {
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(scrollProvider.barHeight + 2),
               child: OverflowBox(
-                maxHeight: 125,
+                maxHeight: 129,
                 child: DesktopBar(
                     pageIndex: pageIndex, scrollProvider: scrollProvider),
               ),

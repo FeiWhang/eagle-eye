@@ -5,6 +5,7 @@ import 'package:eagle_eye/layouts/desktop/routing/navigation_service.dart';
 import 'package:eagle_eye/layouts/desktop/routing/route_names.dart';
 import 'package:flutter/material.dart';
 import 'package:eagle_eye/layouts/desktop/extensions/hover_extension.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class DesktopBar extends StatelessWidget {
   final int pageIndex;
@@ -15,40 +16,51 @@ class DesktopBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        ScrollProgress(progress: scrollProvider.progress),
-        AnimatedContainer(
-          duration: Duration(milliseconds: 99),
-          curve: Curves.linearToEaseOut,
-          decoration: BoxDecoration(
-            color: Colors.transparent,
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey[400],
+            spreadRadius: 1.99,
+            blurRadius: 9.99,
           ),
-          height: scrollProvider.barHeight,
-          padding: const EdgeInsets.symmetric(
-            horizontal: 70,
-            vertical: 20,
+        ],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          ScrollProgress(progress: scrollProvider.progress),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+            ),
+            height: scrollProvider.barHeight,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 70,
+              vertical: 20,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                _Logo(),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: List<Widget>.generate(
+                      6,
+                      (index) => _BarItem(
+                            index: index,
+                            pageIndex: pageIndex,
+                          )),
+                ),
+              ],
+            ),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              _Logo(),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: List<Widget>.generate(
-                    6,
-                    (index) => _BarItem(
-                          index: index,
-                          pageIndex: pageIndex,
-                        )),
-              ),
-            ],
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -59,14 +71,17 @@ class ScrollProgress extends StatelessWidget {
   const ScrollProgress({Key key, this.progress}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
+    return Container(
       width: double.infinity,
-      height: 4.99,
-      duration: Duration(milliseconds: 99),
-      child: LinearProgressIndicator(
-        value: progress,
+      height: 8.88,
+      padding: EdgeInsets.all(0),
+      child: LinearPercentIndicator(
+        width: MediaQuery.of(context).size.width,
+        lineHeight: 8.88,
+        percent: this.progress,
         backgroundColor: Colors.white,
-        valueColor: AlwaysStoppedAnimation<Color>(AppColor.accent1),
+        linearStrokeCap: LinearStrokeCap.roundAll,
+        linearGradient: AppColor.menuGradient,
       ),
     );
   }

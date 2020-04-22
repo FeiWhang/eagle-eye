@@ -1,18 +1,19 @@
+import 'package:eagle_eye/constants.dart';
+import 'package:eagle_eye/layouts/desktop/utils/launch_url.dart';
 import 'package:flutter/material.dart';
 import 'package:eagle_eye/layouts/desktop/extensions/hover_extension.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 List<Widget> socialMedia() {
   return <Widget>[
     Container(
       alignment: Alignment.bottomRight,
       child: FloatingActionButton(
-        onPressed: () => _launchURL("https://www.facebook.com/eagleeyeTH/"),
+        onPressed: () => launchURL(URL.facebook),
         heroTag: null,
         mini: true,
         shape: new CircleBorder(),
         child: Image.asset(
-          "assets/home/social/facebook.png",
+          Asset.facebook,
         ),
       ),
     ).showCursorOnHover.moveUpOnHover,
@@ -20,13 +21,12 @@ List<Widget> socialMedia() {
       padding: EdgeInsets.only(left: 9.9),
       alignment: Alignment.bottomRight,
       child: FloatingActionButton(
-        onPressed: () => _launchURL(
-            "https://www.youtube.com/channel/UC2AmuaHgNyGCuwNSiB08bzw/videos"),
+        onPressed: () => launchURL(URL.youtube),
         heroTag: null,
         mini: true,
         shape: new CircleBorder(),
         child: Image.asset(
-          "assets/home/social/youtube.png",
+          Asset.youtube,
         ),
       ),
     ).showCursorOnHover.moveUpOnHover,
@@ -34,22 +34,14 @@ List<Widget> socialMedia() {
       padding: EdgeInsets.only(left: 9.9),
       alignment: Alignment.bottomRight,
       child: FloatingActionButton(
-        onPressed: () => _launchURL("https://line.me/R/ti/p/%40eagleeye"),
+        onPressed: () => launchURL(URL.line),
         heroTag: null,
         mini: true,
         shape: new CircleBorder(),
         child: Image.asset(
-          "assets/home/social/line.png",
+          Asset.line,
         ),
       ),
     ).showCursorOnHover.moveUpOnHover,
   ];
-}
-
-_launchURL(String url) async {
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
-  }
 }

@@ -54,8 +54,8 @@ class _ShowButtunOnHoverState extends State<ShowButtunOnHover> {
     return MouseRegion(
       onEnter: (event) => _mouseEnter(true),
       onExit: (event) => _mouseEnter(false),
-      child: AnimatedContainer(
-        duration: Duration(milliseconds: 99),
+      child: Container(
+        height: 699,
         child: _hovering
             ? Swiper(
                 itemCount: Asset.banners.length,

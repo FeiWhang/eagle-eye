@@ -8,54 +8,54 @@ class DesktopBanner extends StatelessWidget {
 
   const DesktopBanner({Key key, this.aspectRatio}) : super(key: key);
 
+  Widget _captions(BuildContext context, int index) {
+    return Container(
+      alignment: Alignment.bottomCenter,
+      margin: EdgeInsets.only(bottom: 39),
+      child: Text(
+        Typo.banners[index],
+        style: TypoStyle.bannerCaption,
+      ),
+    );
+  }
+
   Widget eachBanner(BuildContext context, int index) {
     return AspectRatio(
       aspectRatio: aspectRatio,
-      child: Container(
-        alignment: Alignment.center,
-        child: Stack(
-          children: <Widget>[
-            Container(
-              width: double.infinity,
-              height: 599,
-              child: Image.asset(
-                Asset.banners[index],
-                fit: BoxFit.cover,
-              ),
+      child: Stack(
+        children: <Widget>[
+          SizedBox(
+            width: double.infinity,
+            child: Image.asset(
+              Asset.banners[index],
+              fit: BoxFit.cover,
             ),
-            Container(
-              color: Colors.black.withOpacity(0.2999),
-            ),
-            Container(
-              alignment: Alignment.lerp(
-                  Alignment.bottomCenter, Alignment.bottomLeft, 0.39),
-              margin: const EdgeInsets.only(bottom: 49.99),
-              child: Text(
-                Typo.banners[index],
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+          Container(
+            color: Colors.black.withOpacity(0.2999),
+          ),
+          _captions(context, index) ?? _captions(context, index),
+        ],
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Swiper(
-      itemCount: Asset.banners.length,
-      itemBuilder: (context, index) {
-        return eachBanner(context, index);
-      },
-      control: SwiperControl(iconNext: null, iconPrevious: null),
-      physics: NeverScrollableScrollPhysics(),
-      autoplay: true,
-      viewportFraction: 1,
-    ).showButtunOnHover;
+    return Container(
+      alignment: Alignment.center,
+      width: double.infinity,
+      height: 699,
+      child: Swiper(
+        itemCount: Asset.banners.length,
+        itemBuilder: (context, index) {
+          return eachBanner(context, index);
+        },
+        control: SwiperControl(iconNext: null, iconPrevious: null),
+        physics: NeverScrollableScrollPhysics(),
+        autoplay: true,
+        viewportFraction: 1,
+      ),
+    );
   }
 }
