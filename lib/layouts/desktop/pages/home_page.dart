@@ -1,20 +1,19 @@
 import 'package:eagle_eye/constants.dart';
+import 'package:eagle_eye/layouts/desktop/providers/scale_provider.dart';
 import 'package:eagle_eye/layouts/desktop/utils/launch_url.dart';
 import 'package:flutter/material.dart';
 import 'package:eagle_eye/layouts/desktop/extensions/hover_extension.dart';
 import 'package:getflutter/components/list_tile/gf_list_tile.dart';
+import 'package:provider/provider.dart';
 
 class HomeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverList(
       delegate: SliverChildListDelegate(
-        <Widget>[
-              // DesktopBanner(aspectRatio: 21 / 9).showButtunOnHover,
-              GetStartedBar(),
-            ] +
+        <Widget>[GetStartedBar()] +
             List<Widget>.generate(3, (index) => ProductShowcase(index: index)) +
-            <Widget>[],
+            <Widget>[RecommendedProduct()],
       ),
     );
   }
@@ -118,6 +117,7 @@ class ProductShowcase extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       height: 399,
+      color: Colors.white,
       child: Container(
         width: 1199,
         decoration: BoxDecoration(
@@ -144,8 +144,90 @@ class ProductShowcase extends StatelessWidget {
 }
 
 class RecommendedProduct extends StatelessWidget {
+  Widget _eachProduct(BuildContext context, int index) {
+    return ChangeNotifierProvider<ScaleProvider>(
+      create: (BuildContext context) => ScaleProvider(),
+      child: Consumer<ScaleProvider>(
+        builder: (BuildContext context, ScaleProvider value, Widget child) =>
+            MouseRegion(
+          onEnter: (event) => value.setHovering(true),
+          onExit: (event) => value.setHovering(false),
+          child: Stack(
+            children: [
+              AnimatedContainer(
+                width: MediaQuery.of(context).size.width / 5,
+                height: MediaQuery.of(context).size.width / 5,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(
+                      Asset.homeRecommended[index],
+                    ),
+                    scale: value.scale,
+                  ),
+                ),
+                duration: Duration(milliseconds: 999),
+                curve: Curves.easeOutCirc,
+                // child: ,
+              ),
+              value.hovering
+                  ? AnimatedContainer(
+                      width: MediaQuery.of(context).size.width / 5,
+                      height: MediaQuery.of(context).size.width / 5,
+                      decoration: BoxDecoration(
+                        color: AppColor.darkFilter,
+                      ),
+                      duration: Duration(milliseconds: 199),
+                      curve: Curves.easeOutCirc,
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              Typo.recommendedProducts[index],
+                              style: TypoStyle.whiteTitle,
+                              textAlign: TextAlign.center,
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(9),
+                              margin: EdgeInsets.only(top: 19),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(32),
+                                gradient: AppColor.menuGradient,
+                              ),
+                              child: Text(Typo.recommendedProductsCode[index],
+                                  style: TypoStyle.whiteSubtitle),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  : SizedBox.shrink(),
+            ],
+          ),
+        ),
+      ),
+    ).showCursorOnHover;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return null;
+    return Container(
+      alignment: Alignment.center,
+      padding: EdgeInsets.only(top: 39, bottom: 39),
+      color: Colors.white,
+      child: Column(
+        children: <Widget>[
+          Text(
+            Typo.recommended,
+            style: TypoStyle.blackTitle,
+            textAlign: TextAlign.center,
+          ),
+          Row(
+            children: List.generate(5, (index) => _eachProduct(context, index)),
+          ),
+        ],
+      ),
+    );
   }
 }

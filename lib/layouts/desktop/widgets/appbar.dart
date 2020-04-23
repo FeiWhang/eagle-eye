@@ -22,7 +22,7 @@ class DesktopBar extends StatelessWidget {
       floating: true,
       delegate: DesktopBarDelegate(
         minExtent: 129,
-        maxExtent: 599,
+        maxExtent: 769,
         scrollProvider: scrollProvider,
         pageIndex: pageIndex,
       ),
@@ -180,7 +180,7 @@ class DesktopBarDelegate implements SliverPersistentHeaderDelegate {
   }
 
   Color bannerFilter(double shrinkOffset) {
-    if (shrinkOffset < 299) {
+    if (shrinkOffset < 499) {
       return Colors.black.withOpacity(
           0.39 - (shrinkOffset / maxExtent / 1.5) < 0
               ? 0.0

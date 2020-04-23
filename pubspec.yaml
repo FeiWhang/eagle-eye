@@ -35,6 +35,11 @@ flutter:
         - assets/home/product_showcase/showcase0.png
         - assets/home/product_showcase/showcase1.png
         - assets/home/product_showcase/showcase2.png
+        - assets/home/recommended/project_0.png
+        - assets/home/recommended/project_1.png
+        - assets/home/recommended/project_2.png
+        - assets/home/recommended/project_3.png
+        - assets/home/recommended/project_4.png
 
     fonts:
         - family: CeraPro

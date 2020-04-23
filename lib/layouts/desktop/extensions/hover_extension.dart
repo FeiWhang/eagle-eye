@@ -23,4 +23,12 @@ extension HoverExtensions on Widget {
   Widget get showButtunOnHover {
     return ShowButtunOnHover(child: this);
   }
+
+  Widget get darkenOnHover {
+    return DarkenOnHover(child: this);
+  }
+
+  Widget zoomOnHover(int index) {
+    return ZoomOnHover(child: this, index: index);
+  }
 }

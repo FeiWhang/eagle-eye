@@ -16,6 +16,14 @@ class Asset {
     "assets/home/product_showcase/showcase1.png",
     "assets/home/product_showcase/showcase2.png"
   ];
+
+  static const List<String> homeRecommended = <String>[
+    "assets/home/recommended/project_0.png",
+    "assets/home/recommended/project_1.png",
+    "assets/home/recommended/project_2.png",
+    "assets/home/recommended/project_3.png",
+    "assets/home/recommended/project_4.png"
+  ];
 }
 
 class Typo {
@@ -60,6 +68,24 @@ class Typo {
   ];
 
   static const String readMore = "Read More";
+  static const String recommended = "Recommended Products";
+  static const String products = "Products";
+
+  static const List<String> recommendedProducts = <String>[
+    "EAGLE EYE-360° Panoramic Bulb Wireless Camera",
+    "EAGLE EYE-360° Panoramic Camera",
+    "IP Smart Camera with Rechargeable Battery",
+    "Smart Doorbell Set",
+    "IP Smart Camera With Sim",
+  ];
+
+  static const List<String> recommendedProductsCode = <String>[
+    "EG-IPCB1.3",
+    "EG-FV3601",
+    "EG-AB07-2.0MP",
+    "EG-DB2618",
+    "EG-IPLB015",
+  ];
 }
 
 class TypoStyle {
@@ -122,4 +148,6 @@ class AppColor {
     end: Alignment.centerRight,
     colors: [Colors.white, accent1],
   );
+
+  static final Color darkFilter = Colors.black.withOpacity(0.69999);
 }

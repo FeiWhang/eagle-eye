@@ -2,7 +2,6 @@ import 'package:eagle_eye/constants.dart';
 import 'package:eagle_eye/layouts/desktop/providers/scroll_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:eagle_eye/layouts/desktop/extensions/hover_extension.dart';
 
 class DesktopBanner extends StatelessWidget {
   final double aspectRatio;
@@ -42,7 +41,9 @@ class DesktopBanner extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          // _captions(context, index),
+          Container(
+            color: filter,
+          ),
         ],
       ),
     );
@@ -55,23 +56,16 @@ class DesktopBanner extends StatelessWidget {
       child: Container(
         alignment: Alignment.center,
         width: double.infinity,
-        height: 602.99,
-        child: Stack(
-          children: <Widget>[
-            Swiper(
-              itemCount: Asset.banners.length,
-              itemBuilder: (context, index) {
-                return eachBanner(context, index);
-              },
-              control: SwiperControl(iconNext: null, iconPrevious: null),
-              physics: NeverScrollableScrollPhysics(),
-              autoplay: true,
-              viewportFraction: 1,
-            ).showButtunOnHover,
-            Container(
-              color: filter,
-            ),
-          ],
+        height: 769,
+        child: Swiper(
+          itemCount: Asset.banners.length,
+          itemBuilder: (context, index) {
+            return eachBanner(context, index);
+          },
+          control: SwiperControl(iconNext: null, iconPrevious: null),
+          physics: NeverScrollableScrollPhysics(),
+          autoplay: true,
+          viewportFraction: 1,
         ),
       ),
     );
