@@ -1,56 +1,22 @@
 import 'package:eagle_eye/constants.dart';
-import 'package:eagle_eye/layouts/desktop/providers/scroll_provider.dart';
 import 'package:eagle_eye/layouts/desktop/utils/launch_url.dart';
-import 'package:eagle_eye/layouts/desktop/widgets/banners.dart';
 import 'package:flutter/material.dart';
 import 'package:eagle_eye/layouts/desktop/extensions/hover_extension.dart';
 import 'package:getflutter/components/list_tile/gf_list_tile.dart';
 
-class HomePage extends StatelessWidget {
-  final ScrollController scrollController;
-  final ScrollProvider scrollProvider;
-
-  HomePage({this.scrollProvider, this.scrollController});
-
+class HomeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return NotificationListener<ScrollNotification>(
-      onNotification: (notification) {
-        if ((notification is ScrollStartNotification ||
-                notification is ScrollUpdateNotification ||
-                notification is ScrollEndNotification) &&
-            notification.metrics.pixels <
-                scrollController.position.maxScrollExtent) {
-          _updateScroll(notification.metrics.pixels);
-        }
-        return true;
-      },
-      child: SingleChildScrollView(
-        controller: scrollController,
-        child: Column(
-          children: <Widget>[
-                DesktopBanner(aspectRatio: 21 / 9).showButtunOnHover,
-              ] +
-              [
-                GetStartedBar(key: key),
-              ] +
-              List<Widget>.generate(
-                  3, (index) => ProductShowcase(index: index)),
-        ),
+    return SliverList(
+      delegate: SliverChildListDelegate(
+        <Widget>[
+              // DesktopBanner(aspectRatio: 21 / 9).showButtunOnHover,
+              GetStartedBar(),
+            ] +
+            List<Widget>.generate(3, (index) => ProductShowcase(index: index)) +
+            <Widget>[],
       ),
     );
-  }
-
-  void _updateScroll(double pixel) {
-    // set max only once
-    if (scrollProvider.maxPixel == null ||
-        scrollProvider.maxPixel < scrollController.position.maxScrollExtent) {
-      scrollProvider.setMaxPixel(scrollController.position.maxScrollExtent);
-    }
-    scrollProvider.setMaxPixel(scrollController.position.maxScrollExtent);
-    if (pixel <= scrollProvider.maxPixel) {
-      scrollProvider.updatePixels(pixel); // update pixel
-    }
   }
 }
 
@@ -151,26 +117,35 @@ class ProductShowcase extends StatelessWidget {
 
     return Container(
       alignment: Alignment.center,
-      width: 1199,
       height: 399,
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(width: 0.99, color: Colors.grey[100]),
-        ),
-      ),
-      child: GFListTile(
-        avatar: isPictureLead == true ? _picture() : null,
-        title: _title(index),
-        subTitle: SizedBox(
-          width: 599,
-          child: Text(
-            Typo.homeShowcasesSubtitle[index],
-            style: TypoStyle.blackSubtitle,
+      child: Container(
+        width: 1199,
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(width: 0.99, color: Colors.grey[200]),
           ),
         ),
-        icon: isPictureLead == false ? _picture() : null,
-        padding: EdgeInsets.all(39),
+        child: GFListTile(
+          avatar: isPictureLead == true ? _picture() : null,
+          title: _title(index),
+          subTitle: Container(
+            width: 599,
+            child: Text(
+              Typo.homeShowcasesSubtitle[index],
+              style: TypoStyle.blackSubtitle,
+            ),
+          ),
+          icon: isPictureLead == false ? _picture() : null,
+          padding: EdgeInsets.all(39),
+        ),
       ),
     );
+  }
+}
+
+class RecommendedProduct extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return null;
   }
 }

@@ -16,52 +16,72 @@ class Desktop extends StatelessWidget {
   const Desktop({Key key, this.pageIndex}) : super(key: key);
 
   Widget build(BuildContext context) {
-    final ScrollController _scrollController = ScrollController();
+    final ScrollController scrollController = ScrollController();
 
     return ChangeNotifierProvider<ScrollProvider>(
       create: (BuildContext context) => ScrollProvider(),
       child: Consumer<ScrollProvider>(
         builder: (BuildContext context, ScrollProvider scrollProvider,
             Widget child) {
-          Widget desktopChild;
-
+          Widget body;
           switch (pageIndex) {
             case 0:
-              desktopChild = HomePage(
-                  scrollProvider: scrollProvider,
-                  scrollController: _scrollController);
+              body = HomeBody();
               break;
             case 1:
-              desktopChild = AboutPage();
+              body = AboutPage();
               break;
             case 2:
-              desktopChild = ProductPage();
+              body = ProductPage();
               break;
             case 3:
-              desktopChild = SupportPage();
+              body = SupportPage();
               break;
             case 4:
-              desktopChild = EventPage();
+              body = EventPage();
               break;
             case 5:
-              desktopChild = ContactPage();
+              body = ContactPage();
               break;
             default:
           }
+
           return Scaffold(
-            backgroundColor: Colors.white,
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(scrollProvider.barHeight + 2),
-              child: OverflowBox(
-                maxHeight: 129,
-                child: DesktopBar(
-                    pageIndex: pageIndex, scrollProvider: scrollProvider),
+            body: NotificationListener<ScrollNotification>(
+              onNotification: (notification) {
+                if ((notification is ScrollStartNotification ||
+                        notification is ScrollUpdateNotification ||
+                        notification is ScrollEndNotification) &&
+                    notification.metrics.pixels <
+                        scrollController.position.maxScrollExtent) {
+                  double pixel = notification.metrics.pixels;
+                  double maxPixel = scrollController.position.maxScrollExtent;
+
+                  if (pixel < maxPixel) {
+                    scrollProvider.updatePixels(notification.metrics.pixels);
+                  }
+                  if (scrollProvider.maxPixel == null ||
+                      maxPixel > scrollProvider.maxPixel) {
+                    scrollProvider.setMaxPixel(maxPixel);
+                  }
+                }
+                return true;
+              },
+              child: CustomScrollView(
+                controller: scrollController,
+                slivers: <Widget>[
+                      DesktopBar(
+                        pageIndex: pageIndex,
+                        scrollProvider: scrollProvider,
+                      )
+                    ] +
+                    <Widget>[body],
               ),
             ),
-            body: desktopChild,
             floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
             floatingActionButton: Row(
               mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
               children: socialMedia(),
             ),
           );

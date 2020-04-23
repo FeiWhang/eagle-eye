@@ -64,7 +64,7 @@ class Typo {
 
 class TypoStyle {
   static final TextStyle bannerCaption = TextStyle(
-    color: Colors.grey[100],
+    color: Colors.white,
     fontSize: 32,
     fontWeight: FontWeight.bold,
   );
@@ -116,5 +116,10 @@ class AppColor {
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
     colors: [accent0, accent1],
+  );
+  static const LinearGradient scrollGradient = LinearGradient(
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+    colors: [Colors.white, accent1],
   );
 }

@@ -1,23 +1,34 @@
 import 'package:eagle_eye/constants.dart';
+import 'package:eagle_eye/layouts/desktop/providers/scroll_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:eagle_eye/layouts/desktop/extensions/hover_extension.dart';
 
 class DesktopBanner extends StatelessWidget {
   final double aspectRatio;
+  final ScrollProvider scrollProvider;
+  final Color filter;
 
-  const DesktopBanner({Key key, this.aspectRatio}) : super(key: key);
+  const DesktopBanner(
+      {Key key, this.aspectRatio, this.scrollProvider, this.filter})
+      : super(key: key);
 
-  Widget _captions(BuildContext context, int index) {
-    return Container(
-      alignment: Alignment.bottomCenter,
-      margin: EdgeInsets.only(bottom: 39),
-      child: Text(
-        Typo.banners[index],
-        style: TypoStyle.bannerCaption,
-      ),
-    );
-  }
+  // Widget _captions(BuildContext context, int index) {
+  //   return Align(
+  //     alignment: Alignment.bottomCenter,
+  //     child: Container(
+  //       height: 60,
+  //       width: 888,
+  //       alignment: Alignment.center,
+  //       margin: EdgeInsets.only(bottom: 39),
+  //       child: Text(
+  //         Typo.banners[index],
+  //         style: TypoStyle.bannerCaption,
+  //         textAlign: TextAlign.center,
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget eachBanner(BuildContext context, int index) {
     return AspectRatio(
@@ -31,10 +42,7 @@ class DesktopBanner extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          Container(
-            color: Colors.black.withOpacity(0.2999),
-          ),
-          _captions(context, index) ?? _captions(context, index),
+          // _captions(context, index),
         ],
       ),
     );
@@ -42,19 +50,29 @@ class DesktopBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      width: double.infinity,
-      height: 699,
-      child: Swiper(
-        itemCount: Asset.banners.length,
-        itemBuilder: (context, index) {
-          return eachBanner(context, index);
-        },
-        control: SwiperControl(iconNext: null, iconPrevious: null),
-        physics: NeverScrollableScrollPhysics(),
-        autoplay: true,
-        viewportFraction: 1,
+    return SingleChildScrollView(
+      physics: NeverScrollableScrollPhysics(),
+      child: Container(
+        alignment: Alignment.center,
+        width: double.infinity,
+        height: 602.99,
+        child: Stack(
+          children: <Widget>[
+            Swiper(
+              itemCount: Asset.banners.length,
+              itemBuilder: (context, index) {
+                return eachBanner(context, index);
+              },
+              control: SwiperControl(iconNext: null, iconPrevious: null),
+              physics: NeverScrollableScrollPhysics(),
+              autoplay: true,
+              viewportFraction: 1,
+            ).showButtunOnHover,
+            Container(
+              color: filter,
+            ),
+          ],
+        ),
       ),
     );
   }

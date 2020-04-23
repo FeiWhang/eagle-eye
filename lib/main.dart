@@ -20,6 +20,7 @@ class EagleEye extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         textTheme: Theme.of(context).textTheme.apply(fontFamily: 'CeraPro'),
+        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       ),
       debugShowCheckedModeBanner: false,
       navigatorKey: locator<NavigationService>().navigatorKey,

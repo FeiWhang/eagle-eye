@@ -3,14 +3,10 @@ import 'package:flutter/material.dart';
 class ScrollProvider extends ChangeNotifier {
   double get progress {
     try {
-      return _currentPixels / _maxPixel;
+      return _currentPixels / (_maxPixel - 119);
     } catch (e) {
       return 0;
     }
-  }
-
-  double get barHeight {
-    return (4 / (progress + 0.1)) + 80;
   }
 
   double _maxPixel;
@@ -19,7 +15,9 @@ class ScrollProvider extends ChangeNotifier {
 
   double _currentPixels = 0;
   void updatePixels(double pixel) {
-    _currentPixels = pixel;
-    notifyListeners();
+    if (_maxPixel != null && pixel < _maxPixel) {
+      _currentPixels = pixel;
+      notifyListeners();
+    }
   }
 }

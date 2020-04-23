@@ -5,43 +5,33 @@ import 'package:eagle_eye/layouts/desktop/extensions/hover_extension.dart';
 
 List<Widget> socialMedia() {
   return <Widget>[
-    Container(
-      alignment: Alignment.bottomRight,
-      child: FloatingActionButton(
-        onPressed: () => launchURL(URL.facebook),
-        heroTag: null,
-        mini: true,
-        shape: new CircleBorder(),
-        child: Image.asset(
-          Asset.facebook,
-        ),
+    GestureDetector(
+      onTap: () => launchURL(URL.facebook),
+      child: Image.asset(
+        Asset.facebook,
+        fit: BoxFit.cover,
+        scale: 11.99,
       ),
     ).showCursorOnHover.moveUpOnHover,
-    Container(
-      padding: EdgeInsets.only(left: 9.9),
-      alignment: Alignment.bottomRight,
-      child: FloatingActionButton(
-        onPressed: () => launchURL(URL.youtube),
-        heroTag: null,
-        mini: true,
-        shape: new CircleBorder(),
+    Padding(
+      padding: EdgeInsets.only(left: 19),
+      child: GestureDetector(
+        onTap: () => launchURL(URL.youtube),
         child: Image.asset(
           Asset.youtube,
+          scale: 11.99,
         ),
-      ),
-    ).showCursorOnHover.moveUpOnHover,
-    Container(
-      padding: EdgeInsets.only(left: 9.9),
-      alignment: Alignment.bottomRight,
-      child: FloatingActionButton(
-        onPressed: () => launchURL(URL.line),
-        heroTag: null,
-        mini: true,
-        shape: new CircleBorder(),
+      ).showCursorOnHover.moveUpOnHover,
+    ),
+    Padding(
+      padding: EdgeInsets.only(left: 19),
+      child: GestureDetector(
+        onTap: () => launchURL(URL.line),
         child: Image.asset(
           Asset.line,
+          scale: 11.99,
         ),
-      ),
-    ).showCursorOnHover.moveUpOnHover,
+      ).showCursorOnHover.moveUpOnHover,
+    ),
   ];
 }
