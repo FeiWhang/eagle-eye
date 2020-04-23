@@ -56,7 +56,7 @@ class DesktopBanner extends StatelessWidget {
       child: Container(
         alignment: Alignment.center,
         width: double.infinity,
-        height: 769,
+        height: 599,
         child: Swiper(
           itemCount: Asset.banners.length,
           itemBuilder: (context, index) {

@@ -22,7 +22,7 @@ class DesktopBar extends StatelessWidget {
       floating: true,
       delegate: DesktopBarDelegate(
         minExtent: 129,
-        maxExtent: 769,
+        maxExtent: 599,
         scrollProvider: scrollProvider,
         pageIndex: pageIndex,
       ),
@@ -158,7 +158,6 @@ class DesktopBarDelegate implements SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    print(shrinkOffset);
     return Stack(
       children: <Widget>[
         Align(
@@ -167,6 +166,13 @@ class DesktopBarDelegate implements SliverPersistentHeaderDelegate {
             aspectRatio: 21 / 9,
             scrollProvider: scrollProvider,
             filter: bannerFilter(shrinkOffset),
+          ),
+        ),
+        SingleChildScrollView(
+          child: Container(
+            color: Colors.transparent,
+            width: double.infinity,
+            height: 599,
           ),
         ),
         _menuBar(shrinkOffset),
